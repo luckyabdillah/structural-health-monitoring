@@ -2,7 +2,6 @@ import { useState } from "react"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { ILogin } from "@/types/Auth"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 
@@ -23,7 +22,7 @@ const useLogin = () => {
         resolver: yupResolver(loginSchema)
     })
 
-    const loginService = async (payload: ILogin) => {
+    const loginService = async (payload: string) => {
         // const result = await signIn("credentials", {
         //     ...payload,
         //     redirect: false,
@@ -48,7 +47,7 @@ const useLogin = () => {
         }
     })
 
-    const handleLogin = (data: ILogin) => mutateLogin(data)
+    const handleLogin = (data: string) => mutateLogin(data)
 
     return {
         isVisible,

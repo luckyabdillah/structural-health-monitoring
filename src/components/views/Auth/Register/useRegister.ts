@@ -2,8 +2,6 @@ import { useState } from "react"
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { IRegister } from "@/types/Auth"
-import authServices from "@/services/auth.service"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 
@@ -35,9 +33,9 @@ const useRegister = () => {
         resolver: yupResolver(registerSchema)
     })
 
-    const registerService = async (payload: IRegister) => {
-        const result = await authServices.register(payload)
-        return result
+    const registerService = async (payload: string) => {
+        // const result = await authServices.register(payload)
+        return true
     }
 
     const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
@@ -53,7 +51,7 @@ const useRegister = () => {
         }
     })
 
-    const handleRegister = (data: IRegister) => mutateRegister(data)
+    const handleRegister = (data: string) => mutateRegister(data)
 
     return {
         visiblePassword,
