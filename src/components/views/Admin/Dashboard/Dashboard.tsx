@@ -1,7 +1,30 @@
+'use client'
+
 import { Alert, Card, CardBody, CardHeader } from "@nextui-org/react"
 import { BiBarChart, BiCheckShield, BiLineChart, BiLock, BiPlug } from "react-icons/bi"
+import { db } from "@/libs/firebase/client"
+import { collection, query, orderBy, limit, onSnapshot } from "firebase/firestore"
+import { useEffect, useState } from "react"
 
 const Dashboard = () => {
+    const [latest, setLatest] = useState<any>(null)
+
+    useEffect(() => {
+        const q = query(
+            collection(db, "sensorData"),
+            orderBy("timestamp", "desc"),
+            limit(1)
+        )
+
+        const unsub = onSnapshot(q, (snapshot) => {
+        if (!snapshot.empty) {
+            setLatest({ id: snapshot.docs[0].id, ...snapshot.docs[0].data() })
+        }
+        })
+
+        return () => unsub()
+    }, [])
+
     return (
         <div className="max-w-6xl mx-auto py-4">
             <div className="w-full mb-4">
@@ -83,7 +106,8 @@ const Dashboard = () => {
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Real-time Strain Data</p>
-                                <p className="text-blue-600 font-semibold text-2xl mt-1">178.87 µε</p>
+                                <p className="text-blue-600 font-semibold text-2xl mt-1">
+                                    {latest ? `${latest.strain} µε` : "Loading..."}</p>
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>
@@ -103,7 +127,7 @@ const Dashboard = () => {
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Real-time Load Data</p>
-                                <p className="text-green-600 font-semibold text-2xl mt-1">300.4 kg</p>
+                                <p className="text-green-600 font-semibold text-2xl mt-1">{latest ? `${latest.loadCell} kg` : "Loading..."}</p>
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>
