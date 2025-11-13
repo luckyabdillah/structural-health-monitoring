@@ -4,7 +4,7 @@ import History from "@/components/views/Admin/History"
 
 const DashboardAdminPage = () => {
     return (
-        <DashboardLayout title="Dashboard" description="Dashboard Admin" type="admin">
+        <DashboardLayout title="History" description="Dashboard Admin" type="admin">
             <History />
         </DashboardLayout>
     )

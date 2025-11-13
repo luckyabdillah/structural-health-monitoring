@@ -11,19 +11,19 @@ const SIDEBAR_ADMIN = [
     },
     {
         key: "history",
-        label: "Histori Data",
+        label: "History",
         href: "/dashboard/history",
         icon: <BiHistory />
     },
     {
         key: "information",
-        label: "Informasi Sensor",
+        label: "Information",
         href: "/dashboard/information",
         icon: <BiInfoCircle />
     },
     {
         key: "settings",
-        label: "Pengaturan",
+        label: "Settings",
         href: "/dashboard/settings",
         icon: <BiCog />
     },

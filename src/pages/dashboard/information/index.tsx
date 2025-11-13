@@ -4,7 +4,7 @@ import Information from "@/components/views/Admin/Information"
 
 const DashboardAdminPage = () => {
     return (
-        <DashboardLayout title="Dashboard" description="Dashboard Admin" type="admin">
+        <DashboardLayout title="Information" description="Dashboard Admin" type="admin">
             <Information />
         </DashboardLayout>
     )

@@ -8,7 +8,7 @@ const Information = () => {
                 {/* Info Card 1 */}
                 <Card className="min-h-[160px]">
                     <CardHeader className="px-5 pt-4 pb-2">
-                        <h3 className="text-md font-semibold">Strain Gauge Information</h3>
+                        <h3 className="text-md font-semibold">Strain Gauge</h3>
                     </CardHeader>
                     <CardBody className="px-5 py-4">
                         <div className="space-y-3 text-sm text-gray-600">
@@ -35,7 +35,7 @@ const Information = () => {
                 {/* Info Card 2 (duplicate/content variant) */}
                 <Card className="min-h-[160px]">
                     <CardHeader className="px-5 pt-4 pb-2">
-                        <h3 className="text-md font-semibold">Load Cell Information</h3>
+                        <h3 className="text-md font-semibold">Load Cell</h3>
                     </CardHeader>
                     <CardBody className="px-5 py-4">
                         <div className="space-y-3 text-sm text-gray-600">

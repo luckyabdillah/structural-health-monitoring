@@ -139,7 +139,7 @@ const History = () => {
             <div className="grid grid-cols-1 gap-4">
                 <Card>
                     <CardHeader className="px-5 pt-4 pb-2">
-                        <h3 className="text-md font-semibold">Strain Gauge Monitoring</h3>
+                        <h3 className="text-md font-semibold">Strain Gauge Data</h3>
                     </CardHeader>
                     <CardBody className="px-5 py-4 flex flex-col justify-between">
                         <div className="pe-2">
@@ -166,7 +166,7 @@ const History = () => {
                 </Card>
                 <Card>
                     <CardHeader className="px-5 pt-4 pb-2">
-                        <h3 className="text-md font-semibold">Load Cell Monitoring</h3>
+                        <h3 className="text-md font-semibold">Load Cell Data</h3>
                     </CardHeader>
                     <CardBody className="px-5 py-4 flex flex-col justify-between">
                         <div className="pe-2">

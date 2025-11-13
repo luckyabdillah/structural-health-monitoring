@@ -19,7 +19,7 @@ const DashboardLayout = (props: PropTypes) => {
     const [ open, setOpen ] = useState(false)
     return (
         <Fragment>
-            <PageHead title={title} />
+            <PageHead title={`SHM System Dashboard | ${title}`} />
             <div className={`max-w-screen-3xl 3xl:container flex ${inter.className}`}>
                 <DashboardLayoutSidebar
                     sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_MEMBER }
