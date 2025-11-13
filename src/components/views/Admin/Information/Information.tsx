@@ -66,26 +66,28 @@ const Information = () => {
                 </CardHeader>
                 <CardBody className="px-5 pt-3 pb-5">
                     <div className="space-y-3 text-sm text-gray-600">
-                        <div className="flex items-center justify-between py-4 bg-yellow-100 text-yellow-800 px-3 rounded-lg border border-yellow-300">
-                            <span className="flex items-center gap-2">
-                                <BiSolidCircle size={10} color="rgb(234, 179, 8)" />
-                                <span>High strain detected on Beam #3 - SG_04</span>
-                            </span>
-                            <span className="font-medium">15 mins ago</span>
+                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between py-4 bg-yellow-100 text-yellow-800 px-3 rounded-lg border border-yellow-300">
+                            <div className="flex items-center gap-3 flex-1">
+                                <BiSolidCircle size={12} color="rgb(234, 179, 8)" />
+                                <div className="text-sm text-left">High strain detected on Beam #3 - SG_04</div>
+                            </div>
+                            <div className="mt-3 md:mt-0 text-sm font-medium">15 mins ago</div>
                         </div>
-                        <div className="flex items-center justify-between py-4 bg-red-100 text-red-800 px-3 rounded-lg border border-red-300">
-                            <span className="flex items-center gap-2">
-                                <BiSolidCircle size={10} color="rgb(220, 38, 38)" />
-                                <span>Load capacity 85% exceeded - LC_02</span>
-                            </span>
-                            <span className="font-medium">2 hours ago</span>
+
+                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between py-4 bg-red-100 text-red-800 px-3 rounded-lg border border-red-300">
+                            <div className="flex items-center gap-3 flex-1">
+                                <BiSolidCircle size={12} color="rgb(220, 38, 38)" />
+                                <div className="text-sm text-left">Load capacity 85% exceeded - LC_02</div>
+                            </div>
+                            <div className="mt-3 md:mt-0 text-sm font-medium">2 hours ago</div>
                         </div>
-                        <div className="flex items-center justify-between py-4 bg-yellow-100 text-yellow-800 px-3 rounded-lg border border-yellow-300">
-                            <span className="flex items-center gap-2">
-                                <BiSolidCircle size={10} color="rgb(234, 179, 8)" />
-                                <span>Irregular strain pattern</span>
-                            </span>
-                            <span className="font-medium">1 day ago</span>
+
+                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between py-4 bg-yellow-100 text-yellow-800 px-3 rounded-lg border border-yellow-300">
+                            <div className="flex items-center gap-3 flex-1">
+                                <BiSolidCircle size={12} color="rgb(234, 179, 8)" />
+                                <div className="text-sm text-left">Irregular strain pattern</div>
+                            </div>
+                            <div className="mt-3 md:mt-0 text-sm font-medium">1 day ago</div>
                         </div>
                     </div>
                 </CardBody>
