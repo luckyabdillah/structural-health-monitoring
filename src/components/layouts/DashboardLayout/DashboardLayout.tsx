@@ -3,7 +3,8 @@ import PageHead from "@/components/commons/PageHead"
 import { Fragment, ReactNode, useState } from "react"
 import DashboardLayoutSidebar from "./DashboardLayoutSidebar"
 import { SIDEBAR_ADMIN, SIDEBAR_MEMBER } from "./DashboardLayout.constants"
-import { Navbar, NavbarMenuToggle } from "@nextui-org/react"
+import { Navbar } from "@nextui-org/react"
+import { BiMenu, BiX } from 'react-icons/bi'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -34,7 +35,14 @@ const DashboardLayout = (props: PropTypes) => {
                             classNames={{ wrapper: "p-0" }}
                         >
                             <h1 className="text-2xl font-bold">{title}</h1>
-                            <NavbarMenuToggle aria-label={open ? "Close Menu" : "Open Menu"} onClick={() => setOpen(!open)} className="lg:hidden" />
+                                    <button
+                                        aria-label={open ? 'Close Menu' : 'Open Menu'}
+                                        aria-expanded={open}
+                                        onClick={() => setOpen(!open)}
+                                        className="lg:hidden p-2 -mr-2 z-50 inline-flex items-center justify-center rounded-md focus:outline-none"
+                                    >
+                                        {open ? <BiX size={28} /> : <BiMenu size={28} />}
+                                    </button>
                         </Navbar>
                     </div>
                     <div className="px-8 py-4">
