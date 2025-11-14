@@ -2,9 +2,11 @@ import MainLayout from "@/components/layouts/MainLayout"
 import { useRouter } from "next/router"
 import { Button } from "@nextui-org/react"
 import Link from 'next/link'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import Image from "next/image"
+import { db } from "@/libs/firebase/client"
+import { collection, query, orderBy, limit, onSnapshot } from "firebase/firestore"
 
 const HomePage = () => {
     const router = useRouter()
@@ -15,6 +17,24 @@ const HomePage = () => {
     const scrollTo = (ref: typeof berandaRef) => {
         ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
+
+    const [latest, setLatest] = useState<any>(null)
+
+    useEffect(() => {
+        const q = query(
+            collection(db, "sensorData"),
+            orderBy("timestamp", "desc"),
+            limit(1)
+        )
+
+        const unsub = onSnapshot(q, (snapshot) => {
+        if (!snapshot.empty) {
+            setLatest({ id: snapshot.docs[0].id, ...snapshot.docs[0].data() })
+        }
+        })
+
+        return () => unsub()
+    }, [])
 
     return (
         <MainLayout title="Structural Health Monitoring">
@@ -55,7 +75,7 @@ const HomePage = () => {
                                         </span>
                                         <span className="text-gray-500">Strain Gauge</span>
                                     </div>
-                                    <span className="text-blue-600 font-medium">178.87 µε</span>
+                                    <span className="text-blue-600 font-medium">{latest ? `${latest.strain} µε` : "Loading..."}</span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex gap-2 items-center">
@@ -65,7 +85,7 @@ const HomePage = () => {
                                         </span>
                                         <span className="text-gray-500">Load Cell</span>
                                     </div>
-                                    <span className="text-green-600 font-medium">300.4 kg</span>
+                                    <span className="text-green-600 font-medium">{latest ? `${latest.loadCell} kg` : "Loading..."}</span>
                                 </div>
                             </div>
                         </div>
