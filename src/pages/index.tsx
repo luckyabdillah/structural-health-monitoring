@@ -3,8 +3,8 @@ import { useRouter } from "next/router"
 import { Button } from "@nextui-org/react"
 import Link from 'next/link'
 import { useRef } from 'react'
-import { BiSolidCircle } from "react-icons/bi"
 import clsx from 'clsx'
+import Image from "next/image"
 
 const HomePage = () => {
     const router = useRouter()
@@ -21,10 +21,12 @@ const HomePage = () => {
             {/* Fixed navbar */}
             <header className="fixed inset-x-0 top-0 bg-white/80 backdrop-blur-md z-50 shadow-sm">
                 <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
-                    <div className="text-lg font-bold">SHM</div>
-                    <div className="flex items-center gap-7">
-                        <button onClick={() => scrollTo(berandaRef)} className="text-gray-700 hover:text-gray-900">Beranda</button>
-                        <button onClick={() => scrollTo(tentangRef)} className="text-gray-700 hover:text-gray-900">Tentang</button>
+                    <div className="text-lg font-bold">
+                        <Image src="/images/general/logo.png" alt="logo" width={180} height={60} className="w-24" />
+                    </div>
+                    <div className="flex items-center lg:gap-7 sm:gap-4">
+                        <button onClick={() => scrollTo(berandaRef)} className="text-gray-700 hover:text-gray-900 sm:block hidden">Beranda</button>
+                        <button onClick={() => scrollTo(tentangRef)} className="text-gray-700 hover:text-gray-900 sm:block hidden">Tentang</button>
                         <Button color="danger" onPress={() => router.push('/auth/login')}>Login</Button>
                     </div>
                 </nav>

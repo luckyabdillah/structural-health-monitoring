@@ -25,8 +25,7 @@ const DashboardLayoutSidebar = (props: PropTypes) => {
         )}>
             <div>
                 <div className="flex justify-center">
-                    <h1 className="text-xl font-bold py-3">SHM System</h1>
-                    {/* <Image src="/images/general/logo.svg" alt="logo" width={180} height={60} className="mb-6 w-32" onClick={() => router.push('/')} /> */}
+                    <Image src="/images/general/logo.png" alt="logo" width={180} height={60} className="mb-4 w-32 me-2" onClick={() => router.push('/')} />
                 </div>
                 <Listbox items={sidebarItems} variant="solid" aria-label="Dashboard Menu">
                     {(item) => (

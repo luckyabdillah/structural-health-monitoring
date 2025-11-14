@@ -13,7 +13,7 @@ const Register = () => {
     return (
         <div className="flex flex-col w-full items-center justify-center gap-10 lg:flex-row lg:gap-20">
             <div className="flex w-full flex-col items-center justify-center gap-10 lg:w-1/3">
-                <h2 className="text-2xl text-danger font-semibold uppercase">SHM System</h2>
+                <Image src="/images/general/logo.png" alt="logo" width={180} height={60} className="mb-4 w-32" onClick={() => router.push('/')} />
                 <Image
                     src="/images/illustrations/login.svg"
                     alt="login"
