@@ -135,7 +135,7 @@ const History = () => {
     }]
 
     return (
-        <div className="max-w-6xl mx-auto py-4">
+        <div className="max-w-6xl mx-auto py-3">
             <div className="grid grid-cols-1 gap-4">
                 <Card>
                     <CardHeader className="px-5 pt-4 pb-2">

@@ -3,7 +3,7 @@ import { BiLineChart, BiLock, BiSolidCircle } from "react-icons/bi"
 
 const Information = () => {
     return (
-        <div className="max-w-6xl mx-auto py-4">
+        <div className="max-w-6xl mx-auto py-3">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
                 {/* Info Card 1 */}
                 <Card className="min-h-[160px]">

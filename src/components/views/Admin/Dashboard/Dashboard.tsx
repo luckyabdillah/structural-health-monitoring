@@ -26,7 +26,7 @@ const Dashboard = () => {
     }, [])
 
     return (
-        <div className="max-w-6xl mx-auto py-4">
+        <div className="max-w-6xl mx-auto py-3">
             <div className="w-full mb-4">
                 <Alert
                     hideIcon

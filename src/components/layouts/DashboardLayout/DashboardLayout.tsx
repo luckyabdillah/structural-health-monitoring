@@ -25,17 +25,21 @@ const DashboardLayout = (props: PropTypes) => {
                     sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_MEMBER }
                     isOpen={open}
                 />
-                <div className="h-screen w-full overflow-y-auto p-8">
-                    <Navbar
-                        className="flex justify-between bg-transparent px-0"
-                        isBlurred={false}
-                        position="static"
-                        classNames={{ wrapper: "p-0" }}
-                    >
-                        <h1 className="text-3xl font-bold">{title}</h1>
-                        <NavbarMenuToggle aria-label={open ? "Close Menu" : "Open Menu"} onClick={() => setOpen(!open)} className="lg:hidden" />
-                    </Navbar>
-                    {children}
+                <div className="w-full">
+                    <div className="pb-0 border-b-1 border-gray-200 bg-white shadow-sm sticky top-0 z-40">
+                        <Navbar
+                            className="flex justify-between bg-transparent px-8"
+                            isBlurred={false}
+                            position="sticky"
+                            classNames={{ wrapper: "p-0" }}
+                        >
+                            <h1 className="text-2xl font-bold">{title}</h1>
+                            <NavbarMenuToggle aria-label={open ? "Close Menu" : "Open Menu"} onClick={() => setOpen(!open)} className="lg:hidden" />
+                        </Navbar>
+                    </div>
+                    <div className="px-8 py-4">
+                        {children}
+                    </div>
                 </div>
             </div>
         </Fragment>

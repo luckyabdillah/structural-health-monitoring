@@ -20,7 +20,7 @@ const DashboardLayoutSidebar = (props: PropTypes) => {
     const router = useRouter()
     const { sidebarItems, isOpen } = props
     return (
-        <div className={cn("fixed lg:relative z-50 flex flex-col h-screen w-full max-w-[300px] -translate-x-full lg:translate-x-0 justify-between border-r-1 border-default-200 bg-white px-4 py-6 transition-all",
+        <div className={cn("fixed lg:sticky lg:top-0 z-50 flex flex-col h-dvh w-full max-w-[275px] -translate-x-full lg:translate-x-0 justify-between border-r-1 border-default-200 bg-white px-4 py-6 transition-all",
             {"translate-x-0": isOpen}
         )}>
             <div>
