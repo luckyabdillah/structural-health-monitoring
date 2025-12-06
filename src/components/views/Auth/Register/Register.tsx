@@ -28,10 +28,10 @@ const Register = () => {
                         <BiArrowBack color="gray" size={14} />
                         <button onClick={() => router.push('/')} className="text-sm text-gray-600 hover:underline">Back to Home</button>
                     </div>
-                    <h2 className="text-2xl font-bold text-danger-500">Create Account</h2>
+                    <h2 className="text-2xl font-bold text-primary-500">Create Account</h2>
                     <p className="mb-4 mt-2 text-small">
                         Have an account?&nbsp;
-                        <Link href="/auth/login" className="font-semibold text-danger-400">Login here</Link>
+                        <Link href="/auth/login" className="font-semibold text-primary-400">Login here</Link>
                     </p>
                     <form className={cn("flex w-80 flex-col")}>
                         <Input
@@ -69,7 +69,7 @@ const Register = () => {
                             variant="bordered"
                             autoComplete="off"
                         />
-                        <Button color="danger" size="lg" type="button" onPress={() => router.push('/dashboard')}>
+                        <Button color="primary" size="lg" type="button" onPress={() => router.push('/dashboard')}>
                             { false ? (
                                 <Spinner color="white" size="sm" />
                             ) : "Register" }

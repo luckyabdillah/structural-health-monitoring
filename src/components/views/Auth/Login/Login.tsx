@@ -28,10 +28,10 @@ const Login = () => {
                         <BiArrowBack color="gray" size={14} />
                         <button onClick={() => router.push('/')} className="text-sm text-gray-600 hover:underline">Back to Home</button>
                     </div>
-                    <h2 className="text-2xl font-bold text-danger-500">Login</h2>
+                    <h2 className="text-2xl font-bold text-blue-500">Login</h2>
                     <p className="mb-4 mt-2 text-small">
                         Don&apos;t have an account?&nbsp;
-                        <Link href="/auth/register" className="font-semibold text-danger-400">Register here</Link>
+                        <Link href="/auth/register" className="font-semibold text-blue-400">Register here</Link>
                     </p>
                     <form className={cn("flex w-80 flex-col")}>
                         <Input
@@ -48,7 +48,7 @@ const Login = () => {
                             variant="bordered"
                             autoComplete="off"
                         />
-                        <Button color="danger" size="lg" type="button" onPress={() => router.push('/dashboard')}>
+                        <Button color="primary" size="lg" type="button" onPress={() => router.push('/dashboard')}>
                             { false ? (
                                 <Spinner color="white" size="sm" />
                             ) : "Login" }

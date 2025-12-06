@@ -30,7 +30,7 @@ const Dashboard = () => {
             <div className="w-full mb-4">
                 <Alert
                     hideIcon
-                    color="default"
+                    color="primary"
                     description="Structural Health Monitoring System — real-time strain & load monitoring"
                     title="Welcome back, Silvani Aritonang!"
                     variant="faded"
@@ -39,6 +39,19 @@ const Dashboard = () => {
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                <Card className="h-100">
+                    <CardBody className="px-6 py-4 flex flex-col justify-between">
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 bg-purple-100 rounded-md">
+                                <BiCheckShield size={28} color="purple" />
+                            </div>
+                            <div>
+                                <p className="text-sm text-gray-500">Health Status</p>
+                                <p className="font-bold">97%</p>
+                            </div>
+                        </div>
+                    </CardBody>
+                </Card>
                 <Card className="h-100">
                     <CardBody className="px-6 py-4 flex flex-col justify-between">
                         <div className="flex items-center gap-4">
@@ -74,19 +87,6 @@ const Dashboard = () => {
                             <div>
                                 <p className="text-sm text-gray-500">Data Points</p>
                                 <p className="font-bold">856K</p>
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
-                <Card className="h-100">
-                    <CardBody className="px-6 py-4 flex flex-col justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 bg-purple-100 rounded-md">
-                                <BiCheckShield size={28} color="purple" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-gray-500">Health Status</p>
-                                <p className="font-bold">97%</p>
                             </div>
                         </div>
                     </CardBody>

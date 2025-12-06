@@ -47,7 +47,7 @@ const HomePage = () => {
                     <div className="flex items-center lg:gap-7 sm:gap-4">
                         <button onClick={() => scrollTo(berandaRef)} className="text-gray-700 hover:text-gray-900 sm:block hidden">Beranda</button>
                         <button onClick={() => scrollTo(tentangRef)} className="text-gray-700 hover:text-gray-900 sm:block hidden">Tentang</button>
-                        <Button color="danger" onPress={() => router.push('/auth/login')}>Login</Button>
+                        <Button color="primary" onPress={() => router.push('/auth/login')}>Login</Button>
                     </div>
                 </nav>
             </header>
@@ -60,11 +60,11 @@ const HomePage = () => {
                             <h1 className="text-3xl md:text-4xl font-extrabold mb-4">Structural Health Monitoring</h1>
                             <p className="text-gray-600 mb-6">Real-time monitoring for strain and load — visualize sensor data, track trends, and get alerts when values exceed thresholds.</p>
                             <div className="flex items-center gap-1">
-                                <Button color="danger" className="text-white" onPress={() => scrollTo(tentangRef)}>Tentang</Button>
+                                <Button color="primary" className="text-white" onPress={() => scrollTo(tentangRef)}>Tentang</Button>
                                 <Link href="/auth/login" className="px-4 py-2 text-sm hover:underline">Masuk</Link>
                             </div>
                         </div>
-                        <div className="bg-gray-100 rounded-xl p-6">
+                        <div className="bg-sky-100 rounded-xl px-6 py-8 shadow-md">
                             <h4 className="text-lg font-semibold mb-2">Live Metrics</h4>
                             <div className="space-y-2 text-sm text-gray-700">
                                 <div className="flex items-center justify-between">
@@ -99,7 +99,7 @@ const HomePage = () => {
                         <p className="text-gray-600 mb-6">Sistem ini dirancang untuk mengawasi perubahan strain dan load pada struktur secara real-time menggunakan strain gauge yang dipasang pada titik-titik kritis.</p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="p-6 border rounded-xl">
+                            <div className="p-6 bg-sky-100 shadow-md rounded-xl">
                                 <h3 className="font-semibold mb-3">Karakteristik Strain Gauge</h3>
                                 <ul className="text-sm text-gray-700 space-y-2">
                                     <li><strong>Working Principle:</strong> Resistance change (perubahan resistansi)</li>
@@ -109,7 +109,7 @@ const HomePage = () => {
                                 </ul>
                             </div>
 
-                            <div className="p-6 border rounded-xl">
+                            <div className="p-6 bg-sky-100 shadow-md rounded-xl">
                                 <h3 className="font-semibold mb-3">Panduan Singkat</h3>
                                 <ol className="text-sm text-gray-700 list-decimal list-inside space-y-2">
                                     <li>Pasang strain gauge dengan permukaan yang bersih dan rata.</li>
