@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { useRef, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import Image from "next/image"
-import { db } from "@/libs/firebase/client"
-import { collection, query, orderBy, limit, onSnapshot } from "firebase/firestore"
+import { query, orderByChild, equalTo, onValue } from "firebase/database";
+import { sensorsRef } from "@/libs/firebase/client";
 
 const HomePage = () => {
     const router = useRouter()
@@ -18,23 +18,32 @@ const HomePage = () => {
         ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
 
-    const [latest, setLatest] = useState<any>(null)
+    const [strainValue, setStrainValue] = useState<number | null>(null);
+    const [loadValue, setLoadValue] = useState<number | null>(null);
 
     useEffect(() => {
-        const q = query(
-            collection(db, "sensorData"),
-            orderBy("timestamp", "desc"),
-            limit(1)
-        )
+        const loadCellQuery = query(sensorsRef, orderByChild("type"), equalTo("loadCell"));
+        const strainQuery = query(sensorsRef, orderByChild("type"), equalTo("strain"));
 
-        const unsub = onSnapshot(q, (snapshot) => {
-        if (!snapshot.empty) {
-            setLatest({ id: snapshot.docs[0].id, ...snapshot.docs[0].data() })
-        }
-        })
+        const unsubLoad = onValue(loadCellQuery, (snapshot) => {
+            const data = snapshot.val();
+            if (!data) return;
+            const lastTimestamp = Math.max(...Object.keys(data).map((k) => Number(k)));
+            setLoadValue(data[lastTimestamp]?.value ?? null);
+        });
 
-        return () => unsub()
-    }, [])
+        const unsubStrain = onValue(strainQuery, (snapshot) => {
+            const data = snapshot.val();
+            if (!data) return;
+            const lastTimestamp = Math.max(...Object.keys(data).map((k) => Number(k)));
+            setStrainValue(data[lastTimestamp]?.value ?? null);
+        });
+
+        return () => {
+            unsubLoad();
+            unsubStrain();
+        };
+    }, []);
 
     return (
         <MainLayout title="Structural Health Monitoring">
@@ -75,7 +84,7 @@ const HomePage = () => {
                                         </span>
                                         <span className="text-gray-500">Strain Gauge</span>
                                     </div>
-                                    <span className="text-blue-600 font-medium">{latest ? `${latest.strain} µε` : "Loading..."}</span>
+                                    <span className="text-blue-600 font-medium">{strainValue != null ? `${strainValue} µε` : "Loading..."}</span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex gap-2 items-center">
@@ -85,7 +94,7 @@ const HomePage = () => {
                                         </span>
                                         <span className="text-gray-500">Load Cell</span>
                                     </div>
-                                    <span className="text-green-600 font-medium">{latest ? `${latest.loadCell} kg` : "Loading..."}</span>
+                                    <span className="text-green-600 font-medium">{loadValue != null ? `${loadValue} gr` : "Loading..."}</span>
                                 </div>
                             </div>
                         </div>

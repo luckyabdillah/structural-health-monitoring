@@ -2,28 +2,37 @@
 
 import { Alert, Card, CardBody, CardHeader } from "@nextui-org/react"
 import { BiBarChart, BiCheckShield, BiLineChart, BiLock, BiPlug } from "react-icons/bi"
-import { db } from "@/libs/firebase/client"
-import { collection, query, orderBy, limit, onSnapshot } from "firebase/firestore"
 import { useEffect, useState } from "react"
+import { query, orderByChild, equalTo, onValue } from "firebase/database";
+import { sensorsRef } from "@/libs/firebase/client";
 
 const Dashboard = () => {
-    const [latest, setLatest] = useState<any>(null)
+    const [strainValue, setStrainValue] = useState<number | null>(null);
+    const [loadValue, setLoadValue] = useState<number | null>(null);
 
     useEffect(() => {
-        const q = query(
-            collection(db, "sensorData"),
-            orderBy("timestamp", "desc"),
-            limit(1)
-        )
+        const loadCellQuery = query(sensorsRef, orderByChild("type"), equalTo("loadCell"));
+        const strainQuery = query(sensorsRef, orderByChild("type"), equalTo("strain"));
 
-        const unsub = onSnapshot(q, (snapshot) => {
-        if (!snapshot.empty) {
-            setLatest({ id: snapshot.docs[0].id, ...snapshot.docs[0].data() })
-        }
-        })
+        const unsubLoad = onValue(loadCellQuery, (snapshot) => {
+            const data = snapshot.val();
+            if (!data) return;
+            const lastTimestamp = Math.max(...Object.keys(data).map((k) => Number(k)));
+            setLoadValue(data[lastTimestamp]?.value ?? null);
+        });
 
-        return () => unsub()
-    }, [])
+        const unsubStrain = onValue(strainQuery, (snapshot) => {
+            const data = snapshot.val();
+            if (!data) return;
+            const lastTimestamp = Math.max(...Object.keys(data).map((k) => Number(k)));
+            setStrainValue(data[lastTimestamp]?.value ?? null);
+        });
+
+        return () => {
+            unsubLoad();
+            unsubStrain();
+        };
+    }, []);
 
     return (
         <div className="max-w-6xl mx-auto py-3">
@@ -107,7 +116,7 @@ const Dashboard = () => {
                             <div>
                                 <p className="text-sm text-gray-500">Real-time Strain Data</p>
                                 <p className="text-blue-600 font-semibold text-2xl mt-1">
-                                    {latest ? `${latest.strain} µε` : "Loading..."}</p>
+                                    {strainValue != null ? `${strainValue} µε` : "Loading..."}</p>
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>
@@ -127,7 +136,7 @@ const Dashboard = () => {
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Real-time Load Data</p>
-                                <p className="text-green-600 font-semibold text-2xl mt-1">{latest ? `${latest.loadCell} kg` : "Loading..."}</p>
+                                <p className="text-green-600 font-semibold text-2xl mt-1">{loadValue != null ? `${loadValue} gr` : "Loading..."}</p>
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>
