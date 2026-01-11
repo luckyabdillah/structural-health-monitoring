@@ -1,18 +1,83 @@
-import { Card, CardBody, CardHeader, Progress } from "@nextui-org/react"
+import { Card, CardBody, CardHeader } from "@nextui-org/react"
 import dynamic from 'next/dynamic'
 import type { ApexOptions } from 'apexcharts'
+import { useEffect, useState } from "react"
+import { onValue, query } from "firebase/database"
+import { loadCellRef, strainGaugeRef } from "@/libs/firebase/client"
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const LiveChart = () => {
-    const data1 = [135, 140, 132, 138, 131, 139, 133, 142, 140, 135, 140, 132, 138, 131, 139, 133, 142, 140]
-    const data2 = [135, 140, 132, 138, 131, 139, 133, 142, 140, 135, 140, 132, 138, 131, 139, 133, 142, 140]
+    const [strainData, setStrainData] = useState<number[]>([])
+    const [loadData, setLoadData] = useState<number[]>([])
 
-    const minVal1 = Math.min(...data1)
-    const maxVal1 = Math.max(...data1)
+    useEffect(() => {
+        if (!process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL) {
+            console.error('Firebase configuration missing. Please create .env.local file.');
+            return;
+        }
 
-    const minVal2 = Math.min(...data2)
-    const maxVal2 = Math.max(...data2)
+        try {
+            const loadCellQuery = query(loadCellRef);
+            const strainQuery = query(strainGaugeRef);
+
+            const unsubLoad = onValue(
+                loadCellQuery,
+                (snapshot) => {
+                    const data = snapshot.val();
+                    if (!data) return;
+
+                    const timestamps = Object.keys(data).map(Number).filter(t => !isNaN(t)).sort((a, b) => a - b);
+                    const last15 = timestamps.slice(-15);
+                    const values = last15.map(ts => data[ts]?.load ?? 0);
+
+                    const padded = values.length < 15 ? [...Array(15 - values.length).fill(0), ...values] : values;
+
+                    setLoadData(padded);
+                },
+                (error) => {
+                    console.error('Error reading load cell data:', error);
+                }
+            );
+
+            const unsubStrain = onValue(
+                strainQuery,
+                (snapshot) => {
+                    const data = snapshot.val();
+                    if (!data) return;
+
+                    const timestamps = Object.keys(data).map(Number).filter(t => !isNaN(t)).sort((a, b) => a - b);
+                    const last15 = timestamps.slice(-15);
+                    const values = last15.map(ts => {
+                        const raw = data[ts]?.strain ?? 0
+                        return raw * 1_000_000   // convert µε
+                    });
+
+                    const padded = values.length < 15 ? [...Array(15 - values.length).fill(0), ...values] : values;
+
+                    setStrainData(padded);
+                },
+                (error) => {
+                    console.error('Error reading strain gauge data:', error);
+                }
+            );
+
+            return () => {
+                unsubLoad();
+                unsubStrain();
+            };
+        } catch (error) {
+            console.error('Error initializing Firebase listeners:', error);
+        }
+    }, []);
+
+    const minVal1 = Math.min(...strainData)
+    const maxVal1 = Math.max(...strainData)
+    const absMax1 = Math.max(Math.abs(minVal1), Math.abs(maxVal1), 10)
+
+    const minVal2 = Math.min(...loadData)
+    const maxVal2 = Math.max(...loadData)
+    const absMax2 = Math.max(Math.abs(minVal2), Math.abs(maxVal2), 10)
 
     const options1: ApexOptions = {
         chart: {
@@ -29,13 +94,13 @@ const LiveChart = () => {
                 },
                 export: {
                     csv: {
-                        filename: 'strain-gauge-monitoring', // Sesuaikan jika perlu
+                        filename: 'strain-gauge-chart',
                     },
                     svg: {
-                        filename: 'strain-gauge-monitoring', // Sesuaikan jika perlu
+                        filename: 'strain-gauge-chart',
                     },
                     png: {
-                        filename: 'strain-gauge-monitoring', // Sesuaikan jika perlu
+                        filename: 'strain-gauge-chart',
                     },
                 },
             },
@@ -52,20 +117,27 @@ const LiveChart = () => {
             size: 0
         },
         xaxis: {
-            categories: [...data1].map((_, i) => `T-${data1.length - i}s`),
+            categories: [...strainData].map((_, i) => `Strain Gauge ${strainData.length - i}`),
             labels: { show: false }
         },
         tooltip: {
-            enabled: true
+            y: {
+                formatter: (val: number) => `${val.toFixed(1)} µε`
+            }
         },
         grid: {
             strokeDashArray: 4
         },
         yaxis: {
-            min: 100,
-            max: 200,
+            min: -absMax1,
+            max: absMax1,
             tickAmount: 4,
-            // labels: { show: false },
+            forceNiceScale: true,
+            labels: {
+                formatter: (val: number) => {
+                    return `${val.toFixed(1)} µε`
+                }
+            }
         },
     }
 
@@ -84,13 +156,13 @@ const LiveChart = () => {
                 },
                 export: {
                     csv: {
-                        filename: 'strain-gauge-monitoring', // Sesuaikan jika perlu
+                        filename: 'load-cell-chart',
                     },
                     svg: {
-                        filename: 'strain-gauge-monitoring', // Sesuaikan jika perlu
+                        filename: 'load-cell-chart',
                     },
                     png: {
-                        filename: 'strain-gauge-monitoring', // Sesuaikan jika perlu
+                        filename: 'load-cell-chart',
                     },
                 },
             },
@@ -107,7 +179,7 @@ const LiveChart = () => {
             size: 0
         },
         xaxis: {
-            categories: [...data2].map((_, i) => `T-${data2.length - i}s`),
+            categories: [...loadData].map((_, i) => `Load Cell ${loadData.length - i}`),
             labels: { show: false }
         },
         tooltip: {
@@ -117,21 +189,32 @@ const LiveChart = () => {
             strokeDashArray: 4
         },
         yaxis: {
-            min: 100,
-            max: 200,
+            min: -absMax2,
+            max: absMax2,
             tickAmount: 4,
-            // labels: { show: false },
+            forceNiceScale: true,
         },
+        // annotations: {
+        //     yaxis: [{
+        //         y: 0,
+        //         borderColor: '#999',
+        //         strokeDashArray: 4,
+        //         label: {
+        //             text: '0',
+        //             style: { fontSize: '10px' }
+        //         }
+        //     }]
+        // }
     }
 
     const series1 = [{
         name: 'Strain Gauge',
-        data: data1,
+        data: strainData,
     }]
 
     const series2 = [{
         name: 'Load Cell',
-        data: data2,
+        data: loadData,
     }]
 
     return (
