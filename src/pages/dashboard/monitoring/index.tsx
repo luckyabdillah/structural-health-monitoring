@@ -1,11 +1,11 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout"
 import Dashboard from "@/components/views/Admin/Dashboard"
-import History from "@/components/views/Admin/History"
+import Monitoring from "@/components/views/Admin/Monitoring"
 
 const DashboardAdminPage = () => {
     return (
-        <DashboardLayout title="History" description="Dashboard Admin" type="admin">
-            <History />
+        <DashboardLayout title="Monitoring" description="Dashboard Admin" type="admin">
+            <Monitoring />
         </DashboardLayout>
     )
 }

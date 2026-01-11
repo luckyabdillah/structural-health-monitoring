@@ -5,6 +5,7 @@ import { BiBarChart, BiCheckShield, BiLineChart, BiLock, BiPlug } from "react-ic
 import { useEffect, useState } from "react"
 import { query, orderByChild, equalTo, onValue } from "firebase/database";
 import { sensorsRef } from "@/libs/firebase/client";
+import Link from 'next/link'
 
 const Dashboard = () => {
     const [strainValue, setStrainValue] = useState<number | null>(null);
@@ -47,7 +48,7 @@ const Dashboard = () => {
                 />
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                 <Card className="h-100">
                     <CardBody className="px-6 py-4 flex flex-col justify-between">
                         <div className="flex items-center gap-4">
@@ -100,7 +101,7 @@ const Dashboard = () => {
                         </div>
                     </CardBody>
                 </Card>
-            </div>
+            </div> */}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
                 {/* Metric Card: Strain */}
@@ -120,7 +121,7 @@ const Dashboard = () => {
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>
-                        <div className="mt-5 mb-1 text-sm text-gray-500">Source: Sensor Node A — updated 5s ago</div>
+                        <div className="mt-5 mb-1 text-sm text-gray-500">Source: Strain Gauge Censor — see full output data <Link href="/dashboard/monitoring" className="text-sm text-blue-600 hover:underline">here</Link></div>
                     </CardBody>
                 </Card>
 
@@ -140,7 +141,7 @@ const Dashboard = () => {
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>
-                        <div className="mt-5 mb-1 text-sm text-gray-500">Source: Sensor Node B — updated 8s ago</div>
+                        <div className="mt-5 mb-1 text-sm text-gray-500">Source: Load Cell Censor — see full output data <Link href="/dashboard/monitoring" className="text-sm text-blue-600 hover:underline">here</Link></div>
                     </CardBody>
                 </Card>
             </div>

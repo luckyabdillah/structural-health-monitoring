@@ -1,4 +1,4 @@
-import { BiCog, BiGridAlt, BiHistory, BiInfoCircle, BiInfoSquare } from "react-icons/bi"
+import { BiBarChart, BiCog, BiGridAlt, BiHistory, BiInfoCircle, BiInfoSquare, BiStation } from "react-icons/bi"
 import { CiBookmark, CiGrid41, CiSettings, CiShoppingTag, CiViewList, CiWallet } from "react-icons/ci"
 
 
@@ -10,10 +10,16 @@ const SIDEBAR_ADMIN = [
         icon: <BiGridAlt />
     },
     {
-        key: "history",
-        label: "History",
-        href: "/dashboard/history",
-        icon: <BiHistory />
+        key: "monitoring",
+        label: "Monitoring",
+        href: "/dashboard/monitoring",
+        icon: <BiStation />
+    },
+    {
+        key: "live-chart",
+        label: "Live Chart",
+        href: "/dashboard/live-chart",
+        icon: <BiBarChart />
     },
     {
         key: "information",

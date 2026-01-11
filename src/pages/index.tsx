@@ -130,7 +130,7 @@ const HomePage = () => {
 
                         <div className="mt-8">
                             <h4 className="font-semibold mb-2">Integrasi & Akses</h4>
-                            <p className="text-sm text-gray-600">Halaman dashboard menyediakan grafik real-time, histori data, dan notifikasi. Untuk akses penuh, gunakan tombol <em>Login</em> di pojok kanan atas.</p>
+                            <p className="text-sm text-gray-600">Halaman dashboard menyediakan monitoring real-time, grafik, dan informasi. Untuk akses penuh, gunakan tombol <em>Login</em> di pojok kanan atas.</p>
                         </div>
                     </div>
                 </section>

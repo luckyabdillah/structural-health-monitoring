@@ -4,7 +4,7 @@ import type { ApexOptions } from 'apexcharts'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const History = () => {
+const LiveChart = () => {
     const data1 = [135, 140, 132, 138, 131, 139, 133, 142, 140, 135, 140, 132, 138, 131, 139, 133, 142, 140]
     const data2 = [135, 140, 132, 138, 131, 139, 133, 142, 140, 135, 140, 132, 138, 131, 139, 133, 142, 140]
 
@@ -145,23 +145,6 @@ const History = () => {
                         <div className="pe-2">
                             <Chart options={options1} series={series1} type="area" height={320} />
                         </div>
-                        <div className="px-2 mb-2">
-                            <div className="flex justify-between mt-3 mb-2 text-sm text-gray-500">
-                                <span>Current Strain (µε)</span>
-                                <span>266.8</span>
-                            </div>
-                            <Progress aria-label="Loading..." color="primary" className="w-full" value={60} />
-                            <div className="grid grid-cols-2 gap-3 mt-4">
-                                <div className="flex flex-col py-7 bg-blue-100 rounded-lg text-center">
-                                    <span className="text-sm text-gray-500">Min Strain (µε)</span>
-                                    <span className="font-bold">{minVal1}</span>
-                                </div>
-                                <div className="flex flex-col py-7 bg-blue-100 rounded-lg text-center">
-                                    <span className="text-sm text-gray-500">Max Strain (µε)</span>
-                                    <span className="font-bold">{maxVal1}</span>
-                                </div>
-                            </div>
-                        </div>
                     </CardBody>
                 </Card>
                 <Card>
@@ -172,23 +155,6 @@ const History = () => {
                         <div className="pe-2">
                             <Chart options={options2} series={series2} type="area" height={320} />
                         </div>
-                        <div className="px-2 mb-2">
-                            <div className="flex justify-between mt-3 mb-2 text-sm text-gray-500">
-                                <span>Current Load (kg)</span>
-                                <span>246.5</span>
-                            </div>
-                            <Progress aria-label="Loading..." color="success" className="w-full" value={60} />
-                            <div className="grid grid-cols-2 gap-3 mt-4">
-                                <div className="flex flex-col py-7 bg-green-100 rounded-lg text-center">
-                                    <span className="text-sm text-gray-500">Capacity</span>
-                                    <span className="font-bold">{minVal2}</span>
-                                </div>
-                                <div className="flex flex-col py-7 bg-green-100 rounded-lg text-center">
-                                    <span className="text-sm text-gray-500">Safety Margin</span>
-                                    <span className="font-bold">{maxVal2}</span>
-                                </div>
-                            </div>
-                        </div>
                     </CardBody>
                 </Card>
             </div>
@@ -196,4 +162,4 @@ const History = () => {
     )
 }
 
-export default History
+export default LiveChart
