@@ -4,35 +4,49 @@ import { Alert, Card, CardBody, CardHeader } from "@nextui-org/react"
 import { BiBarChart, BiCheckShield, BiLineChart, BiLock, BiPlug } from "react-icons/bi"
 import { useEffect, useState } from "react"
 import { query, orderByChild, equalTo, onValue } from "firebase/database";
-import { sensorsRef } from "@/libs/firebase/client";
+import { loadCellRef, strainGaugeRef } from "@/libs/firebase/client";
 import Link from 'next/link'
 
 const Dashboard = () => {
-    const [strainValue, setStrainValue] = useState<number | null>(null);
-    const [loadValue, setLoadValue] = useState<number | null>(null);
+    const [strainValue, setStrainValue] = useState<any>(null);
+    const [loadValue, setLoadValue] = useState<any>(null);
 
     useEffect(() => {
-        const loadCellQuery = query(sensorsRef, orderByChild("type"), equalTo("loadCell"));
-        const strainQuery = query(sensorsRef, orderByChild("type"), equalTo("strain"));
+        // Check if Firebase is properly configured
+        if (!process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL) {
+            console.error('Firebase configuration missing. Please create .env.local file.');
+            return;
+        }
 
-        const unsubLoad = onValue(loadCellQuery, (snapshot) => {
-            const data = snapshot.val();
-            if (!data) return;
-            const lastTimestamp = Math.max(...Object.keys(data).map((k) => Number(k)));
-            setLoadValue(data[lastTimestamp]?.value ?? null);
-        });
+        try {
+            const loadCellQuery = query(loadCellRef);
+            const strainQuery = query(strainGaugeRef);
 
-        const unsubStrain = onValue(strainQuery, (snapshot) => {
-            const data = snapshot.val();
-            if (!data) return;
-            const lastTimestamp = Math.max(...Object.keys(data).map((k) => Number(k)));
-            setStrainValue(data[lastTimestamp]?.value ?? null);
-        });
+            const unsubLoad = onValue(loadCellQuery, (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return;
+                const lastTimestamp = Math.max(...Object.keys(data).map(Number));
+                setLoadValue(data[lastTimestamp]);
+            }, (error) => {
+                console.error('Error reading load cell data:', error);
+            });
 
-        return () => {
-            unsubLoad();
-            unsubStrain();
-        };
+            const unsubStrain = onValue(strainQuery, (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return;
+                const lastTimestamp = Math.max(...Object.keys(data).map(Number));
+                setStrainValue(data[lastTimestamp]);
+            }, (error) => {
+                console.error('Error reading strain gauge data:', error);
+            });
+
+            return () => {
+                unsubLoad();
+                unsubStrain();
+            };
+        } catch (error) {
+            console.error('Error initializing Firebase listeners:', error);
+        }
     }, []);
 
     return (
@@ -116,8 +130,7 @@ const Dashboard = () => {
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Real-time Strain Data</p>
-                                <p className="text-blue-600 font-semibold text-2xl mt-1">
-                                    {strainValue != null ? `${strainValue} µε` : "Loading..."}</p>
+                                <p className="text-blue-600 font-semibold text-2xl mt-1">{strainValue ? `${strainValue.strain} µε` : "Loading..."}</p>
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>
@@ -137,7 +150,7 @@ const Dashboard = () => {
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Real-time Load Data</p>
-                                <p className="text-green-600 font-semibold text-2xl mt-1">{loadValue != null ? `${loadValue} gr` : "Loading..."}</p>
+                                <p className="text-green-600 font-semibold text-2xl mt-1">{loadValue ? `${loadValue.load} gr` : "Loading..."}</p>
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>

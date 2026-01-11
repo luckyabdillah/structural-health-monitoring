@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { useRef, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import Image from "next/image"
-import { query, orderByChild, equalTo, onValue } from "firebase/database";
-import { sensorsRef } from "@/libs/firebase/client";
+import { query, orderByChild, equalTo, onValue } from "firebase/database"
+import { loadCellRef, strainGaugeRef } from "@/libs/firebase/client"
 
 const HomePage = () => {
     const router = useRouter()
@@ -18,31 +18,45 @@ const HomePage = () => {
         ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
 
-    const [strainValue, setStrainValue] = useState<number | null>(null);
-    const [loadValue, setLoadValue] = useState<number | null>(null);
+    const [strainValue, setStrainValue] = useState<any>(null);
+    const [loadValue, setLoadValue] = useState<any>(null);
 
     useEffect(() => {
-        const loadCellQuery = query(sensorsRef, orderByChild("type"), equalTo("loadCell"));
-        const strainQuery = query(sensorsRef, orderByChild("type"), equalTo("strain"));
+        // Check if Firebase is properly configured
+        if (!process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL) {
+            console.error('Firebase configuration missing. Please create .env.local file.');
+            return;
+        }
 
-        const unsubLoad = onValue(loadCellQuery, (snapshot) => {
-            const data = snapshot.val();
-            if (!data) return;
-            const lastTimestamp = Math.max(...Object.keys(data).map((k) => Number(k)));
-            setLoadValue(data[lastTimestamp]?.value ?? null);
-        });
+        try {
+            const loadCellQuery = query(loadCellRef);
+            const strainQuery = query(strainGaugeRef);
 
-        const unsubStrain = onValue(strainQuery, (snapshot) => {
-            const data = snapshot.val();
-            if (!data) return;
-            const lastTimestamp = Math.max(...Object.keys(data).map((k) => Number(k)));
-            setStrainValue(data[lastTimestamp]?.value ?? null);
-        });
+            const unsubLoad = onValue(loadCellQuery, (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return;
+                const lastTimestamp = Math.max(...Object.keys(data).map(Number));
+                setLoadValue(data[lastTimestamp]);
+            }, (error) => {
+                console.error('Error reading load cell data:', error);
+            });
 
-        return () => {
-            unsubLoad();
-            unsubStrain();
-        };
+            const unsubStrain = onValue(strainQuery, (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return;
+                const lastTimestamp = Math.max(...Object.keys(data).map(Number));
+                setStrainValue(data[lastTimestamp]);
+            }, (error) => {
+                console.error('Error reading strain gauge data:', error);
+            });
+
+            return () => {
+                unsubLoad();
+                unsubStrain();
+            };
+        } catch (error) {
+            console.error('Error initializing Firebase listeners:', error);
+        }
     }, []);
 
     return (
@@ -84,7 +98,7 @@ const HomePage = () => {
                                         </span>
                                         <span className="text-gray-500">Strain Gauge</span>
                                     </div>
-                                    <span className="text-blue-600 font-medium">{strainValue != null ? `${strainValue} µε` : "Loading..."}</span>
+                                    <span className="text-blue-600 font-medium">{strainValue ? `${strainValue.strain} µε` : "Loading..."}</span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex gap-2 items-center">
@@ -94,7 +108,7 @@ const HomePage = () => {
                                         </span>
                                         <span className="text-gray-500">Load Cell</span>
                                     </div>
-                                    <span className="text-green-600 font-medium">{loadValue != null ? `${loadValue} gr` : "Loading..."}</span>
+                                    <span className="text-green-600 font-medium">{loadValue ? `${loadValue.load} gr` : "Loading..."}</span>
                                 </div>
                             </div>
                         </div>
