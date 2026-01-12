@@ -183,7 +183,9 @@ const LiveChart = () => {
             labels: { show: false }
         },
         tooltip: {
-            enabled: true
+            y: {
+                formatter: (val: number) => `${val.toFixed(1)} g`
+            }
         },
         grid: {
             strokeDashArray: 4
@@ -193,6 +195,11 @@ const LiveChart = () => {
             max: absMax2,
             tickAmount: 4,
             forceNiceScale: true,
+            labels: {
+                formatter: (val: number) => {
+                    return `${val.toFixed(1)} g`
+                }
+            }
         },
         // annotations: {
         //     yaxis: [{
