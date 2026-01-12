@@ -98,7 +98,7 @@ const HomePage = () => {
                                         </span>
                                         <span className="text-gray-500">Strain Gauge</span>
                                     </div>
-                                    <span className="text-blue-600 font-medium">{strainValue ? `${strainValue.strain} µε` : "Loading..."}</span>
+                                    <span className="text-blue-600 font-medium">{strainValue ? `${strainValue.strain * 1_000_000} µε` : "Loading..."}</span>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="flex gap-2 items-center">
@@ -108,7 +108,7 @@ const HomePage = () => {
                                         </span>
                                         <span className="text-gray-500">Load Cell</span>
                                     </div>
-                                    <span className="text-green-600 font-medium">{loadValue ? `${loadValue.load} gr` : "Loading..."}</span>
+                                    <span className="text-green-600 font-medium">{loadValue ? `${loadValue.load} g` : "Loading..."}</span>
                                 </div>
                             </div>
                         </div>

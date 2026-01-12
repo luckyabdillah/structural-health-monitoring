@@ -62,61 +62,6 @@ const Dashboard = () => {
                 />
             </div>
 
-            {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                <Card className="h-100">
-                    <CardBody className="px-6 py-4 flex flex-col justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 bg-purple-100 rounded-md">
-                                <BiCheckShield size={28} color="purple" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-gray-500">Health Status</p>
-                                <p className="font-bold">97%</p>
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
-                <Card className="h-100">
-                    <CardBody className="px-6 py-4 flex flex-col justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 bg-blue-100 rounded-md">
-                                <BiPlug size={28} color="blue" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-gray-500">Strain Gauges</p>
-                                <p className="font-bold">8</p>
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
-                <Card className="h-100">
-                    <CardBody className="px-6 py-4 flex flex-col justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 bg-green-100 rounded-md">
-                                <BiLock size={28} color="green" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-gray-500">Load Cells</p>
-                                <p className="font-bold">4</p>
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
-                <Card className="h-100">
-                    <CardBody className="px-6 py-4 flex flex-col justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 bg-yellow-100 rounded-md">
-                                <BiBarChart size={28} color="orange" />
-                            </div>
-                            <div>
-                                <p className="text-sm text-gray-500">Data Points</p>
-                                <p className="font-bold">856K</p>
-                            </div>
-                        </div>
-                    </CardBody>
-                </Card>
-            </div> */}
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
                 {/* Metric Card: Strain */}
                 <Card className="h-100">
@@ -130,7 +75,7 @@ const Dashboard = () => {
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Real-time Strain Data</p>
-                                <p className="text-blue-600 font-semibold text-2xl mt-1">{strainValue ? `${strainValue.strain} µε` : "Loading..."}</p>
+                                <p className="text-blue-600 font-semibold text-2xl mt-1">{strainValue ? `${strainValue.strain * 1_000_000} µε` : "Loading..."}</p>
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>
@@ -150,7 +95,7 @@ const Dashboard = () => {
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Real-time Load Data</p>
-                                <p className="text-green-600 font-semibold text-2xl mt-1">{loadValue ? `${loadValue.load} gr` : "Loading..."}</p>
+                                <p className="text-green-600 font-semibold text-2xl mt-1">{loadValue ? `${loadValue.load} g` : "Loading..."}</p>
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>

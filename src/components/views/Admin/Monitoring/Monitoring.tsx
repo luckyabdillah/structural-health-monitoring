@@ -85,7 +85,7 @@ const Monitoring = () => {
                     </CardHeader>
                     <CardBody className="px-6 py-5">
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 divide-x divide-slate-200 mb-4">
-                            <MetricItem value={strainValue ? strainValue.strain : "Loading..."} label="Strain (µε)" />
+                            <MetricItem value={strainValue ? String(strainValue.strain * 1_000_000) : "Loading..."} label="Strain (µε)" />
                             <MetricItem value={strainValue ? `${strainValue.load}%` : "Loading..."} label="Load" />
                             <MetricItem value={strainValue ? strainValue.avgVoltage : "Loading..."} label="Avg Voltage (V)" />
                             <MetricItem value={strainValue ? strainValue.vr : "Loading..."} label="Vr" />
