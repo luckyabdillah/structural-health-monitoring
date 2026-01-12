@@ -13,3 +13,4 @@ export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getA
 export const database = getDatabase(app);
 export const strainGaugeRef = ref(database, 'strainGauges');
 export const loadCellRef = ref(database, 'loadCells');
+export const alertRef = ref(database, 'alerts');
