@@ -6,10 +6,13 @@ import { useEffect, useState } from "react"
 import { query, orderByChild, equalTo, onValue } from "firebase/database";
 import { loadCellRef, strainGaugeRef } from "@/libs/firebase/client";
 import Link from 'next/link'
+import useAuthUser from "./useCurrentUser";
 
 const Dashboard = () => {
     const [strainValue, setStrainValue] = useState<any>(null);
     const [loadValue, setLoadValue] = useState<any>(null);
+
+    const { user, loading } = useAuthUser();
 
     useEffect(() => {
         // Check if Firebase is properly configured
@@ -56,7 +59,7 @@ const Dashboard = () => {
                     hideIcon
                     color="primary"
                     description="Structural Health Monitoring System — real-time strain & load monitoring"
-                    title="Welcome back, Silvani Aritonang!"
+                    title={`Welcome back, ${user ? user.displayName || user.email : "Guest"}!`}
                     variant="faded"
                     className="w-full"
                 />

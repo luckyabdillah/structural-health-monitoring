@@ -1,5 +1,6 @@
 import { initializeApp, getApps } from "firebase/app"
-import { getDatabase, ref } from "firebase/database";
+import { getDatabase, ref } from "firebase/database"
+import { getAuth } from "firebase/auth"
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,6 +12,7 @@ const firebaseConfig = {
 // Initialize Firebase only if not already initialized
 export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 export const database = getDatabase(app);
+export const auth = getAuth(app);
 export const strainGaugeRef = ref(database, 'strainGauges');
 export const loadCellRef = ref(database, 'loadCells');
 export const alertRef = ref(database, 'alerts');
