@@ -14,7 +14,7 @@ const MainLayout = (props: PropTypes) => {
     return (
         <Fragment>
             <PageHead title={title} />
-            <section className={`max-w-screen-3xl 3xl:container p-6 ${inter.className}`}>
+            <section className={`max-w-screen-3xl 3xl:container ${inter.className}`}>
                 { children }
             </section>
         </Fragment>
