@@ -79,7 +79,7 @@ const Monitoring = () => {
         <div className="max-w-7xl mx-auto py-3">
             {/* Strain Gauge Card */}
             <div className="mb-5">
-                <Card className="shadow-md">
+                <Card>
                     <CardHeader className="flex flex-col items-start px-6 pt-5 pb-3">
                         <h3 className="text-lg font-semibold text-slate-800">Strain Gauge</h3>
                     </CardHeader>
@@ -98,7 +98,7 @@ const Monitoring = () => {
             </div>
             {/* Load Cell Card */}
             <div className="mb-5">
-                <Card className="shadow-md">
+                <Card>
                     <CardHeader className="flex flex-col items-start px-6 pt-5 pb-3">
                         <h3 className="text-lg font-semibold text-slate-800">Load Cell</h3>
                     </CardHeader>
