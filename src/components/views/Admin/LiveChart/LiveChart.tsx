@@ -21,11 +21,11 @@ interface MetricConfig {
 
 const METRICS: MetricConfig[] = [
     { key: 'strain', label: 'Strain', color: '#3B82F6', unit: 'ε', formatter: (v) => `${(v)} ε` },
-    { key: 'stress', label: 'Stress', color: '#EF4444', unit: 'Pa', formatter: (v) => `${(v / 1_000_000).toFixed(2)}M Pa` },
-    { key: 'load', label: 'Load', color: '#10B981', unit: '%', formatter: (v) => `${v.toFixed(2)}%` },
-    { key: 'deltaL', label: 'Delta L', color: '#F59E0B', unit: 'mm', formatter: (v) => `${(v * 1000).toFixed(3)} mm` },
-    { key: 'avgVoltage', label: 'Avg Voltage', color: '#8B5CF6', unit: 'V', formatter: (v) => `${v.toFixed(4)} V` },
-    { key: 'vr', label: 'Vr', color: '#06B6D4', unit: 'V', formatter: (v) => `${(v * 1_000_000).toFixed(2)} µV` },
+    { key: 'stress', label: 'Tegangan', color: '#EF4444', unit: 'Pa', formatter: (v) => `${(v)} Pa` },
+    { key: 'load', label: 'Percent Value', color: '#10B981', unit: '%', formatter: (v) => `${v.toFixed(2)}%` },
+    { key: 'deltaL', label: 'Pertambahan Panjang', color: '#F59E0B', unit: 'mm', formatter: (v) => `${(v).toFixed(3)} mm` },
+    { key: 'avgVoltage', label: 'Average Voltage', color: '#8B5CF6', unit: 'V', formatter: (v) => `${v.toFixed(4)} V` },
+    { key: 'vr', label: 'VR', color: '#06B6D4', unit: 'V', formatter: (v) => `${(v)} V` },
 ]
 
 const LiveChart = () => {

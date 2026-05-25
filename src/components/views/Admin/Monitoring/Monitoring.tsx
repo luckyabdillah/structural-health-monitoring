@@ -85,12 +85,12 @@ const Monitoring = () => {
                     </CardHeader>
                     <CardBody className="px-6 py-5">
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 divide-x divide-slate-200 mb-4">
-                            <MetricItem value={strainValue ? String(strainValue.strain) : "Loading..."} label="Strain (ε)" />
-                            <MetricItem value={strainValue ? `${strainValue.load}%` : "Loading..."} label="Load" />
-                            <MetricItem value={strainValue ? strainValue.avgVoltage : "Loading..."} label="Avg Voltage (V)" />
-                            <MetricItem value={strainValue ? strainValue.vr : "Loading..."} label="Vr" />
-                            <MetricItem value={strainValue ? strainValue.deltaL : "Loading..."} label="ΔL (mm)" />
-                            <MetricItem value={strainValue ? strainValue.stress.toLocaleString() : "Loading..."} label="Stress (Pa)" />
+                            <MetricItem value={strainValue ? `${strainValue.strain} ε` : "Loading..."} label="Strain" />
+                            <MetricItem value={strainValue ? `${strainValue.load}%` : "Loading..."} label="Percent Value" />
+                            <MetricItem value={strainValue ? `${strainValue.avgVoltage} V` : "Loading..."} label="Average Voltage" />
+                            <MetricItem value={strainValue ? `${strainValue.vr} V` : "Loading..."} label="VR" />
+                            <MetricItem value={strainValue ? `${strainValue.deltaL} mm` : "Loading..."} label="Pertambahan Panjang" />
+                            <MetricItem value={strainValue ? `${strainValue.stress} Pa` : "Loading..."} label="Tegangan" />
                         </div>
                         <p className="text-sm">Status: <span className={`${statusInfo.color} uppercase font-bold`}>{statusInfo.label}</span></p>
                     </CardBody>
@@ -104,7 +104,7 @@ const Monitoring = () => {
                     </CardHeader>
                     <CardBody className="px-6 pt-0 pb-4">
                         <div className="flex justify-center">
-                            <MetricItem value={loadValue ? loadValue.load : "Loading..."} label="Weight (g)" />
+                            <MetricItem value={loadValue ? `${loadValue.load} g` : "Loading..."} label="Berat" />
                         </div>
                     </CardBody>
                 </Card>
