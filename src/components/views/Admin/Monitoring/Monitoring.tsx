@@ -21,9 +21,9 @@ function getStatus(loadValue?: number) {
     if (loadValue === undefined || Number.isNaN(loadValue)) {
         return { label: 'Unknown', color: 'text-slate-700' }
     }
-    if (loadValue > 90) return { label: 'Fatal', color: 'text-red-600' }
-    if (loadValue > 70) return { label: 'Danger', color: 'text-red-500' }
-    if (loadValue > 50) return { label: 'Warning', color: 'text-yellow-500' }
+    if (loadValue > 80) return { label: 'Danger', color: 'text-red-600' }
+    if (loadValue > 40) return { label: 'Warning', color: 'text-red-500' }
+    if (loadValue > 30) return { label: 'Notice', color: 'text-yellow-500' }
     return { label: 'Normal', color: 'text-green-600' }
 }
 
