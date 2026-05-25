@@ -20,7 +20,7 @@ interface MetricConfig {
 }
 
 const METRICS: MetricConfig[] = [
-    { key: 'strain', label: 'Strain', color: '#3B82F6', unit: 'µε', formatter: (v) => `${(v * 1_000_000).toFixed(2)} µε` },
+    { key: 'strain', label: 'Strain', color: '#3B82F6', unit: 'ε', formatter: (v) => `${(v)} ε` },
     { key: 'stress', label: 'Stress', color: '#EF4444', unit: 'Pa', formatter: (v) => `${(v / 1_000_000).toFixed(2)}M Pa` },
     { key: 'load', label: 'Load', color: '#10B981', unit: '%', formatter: (v) => `${v.toFixed(2)}%` },
     { key: 'deltaL', label: 'Delta L', color: '#F59E0B', unit: 'mm', formatter: (v) => `${(v * 1000).toFixed(3)} mm` },

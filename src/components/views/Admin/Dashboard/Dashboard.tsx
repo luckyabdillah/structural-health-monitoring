@@ -78,7 +78,7 @@ const Dashboard = () => {
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500">Real-time Strain Data</p>
-                                <p className="text-blue-600 font-semibold text-2xl mt-1">{strainValue ? `${strainValue.strain * 1_000_000} µε` : "Loading..."}</p>
+                                <p className="text-blue-600 font-semibold text-2xl mt-1">{strainValue ? `${strainValue.strain} ε` : "Loading..."}</p>
                                 <p className="text-xs text-gray-400">Live Reading</p>
                             </div>
                         </div>

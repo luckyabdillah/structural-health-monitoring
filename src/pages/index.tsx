@@ -185,10 +185,10 @@ const HomePage = () => {
                                             <span className="font-medium text-gray-700">Strain Gauge</span>
                                         </div>
                                         <span className="text-2xl font-bold text-green-600">
-                                            {strainValue ? `${(strainValue.strain * 1_000_000).toFixed(0)} µε` : "—"}
+                                            {strainValue ? `${(strainValue.strain)} ε` : "—"}
                                         </span>
                                     </div>
-                                    <p className="text-xs text-gray-500">Micro-strain measurement</p>
+                                    <p className="text-xs text-gray-500">Strain measurement</p>
                                 </motion.div>
 
                                 {/* Load Cell */}
